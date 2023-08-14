@@ -1,6 +1,8 @@
+import 'package:egypt_user_tv/provider/socket_provider.dart';
 import 'package:egypt_user_tv/tv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -9,8 +11,9 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   Future<void> _navigateToNextScreen() async {
+    // var socketProvider = context.read<SocketProvider>();
+    // socketProvider.connection();
     await Future.delayed(Duration(seconds: 1));
-
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => VideoPlayerScreen()));
   }
