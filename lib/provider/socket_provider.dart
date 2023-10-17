@@ -14,17 +14,26 @@ class SocketProvider extends ChangeNotifier {
 
   VideoPlayerController? nextController;
 
-  String socketUrl = "http://54.196.245.7";
+  String socketUrl = "http://3.80.91.77";
   String socketPort = "5000";
   String socketVideoPath = "/videos/";
 
   connection() {
     debugger();
-    IO.Socket socket = IO.io(socketUrl + ":" + socketPort);
-    socket.onerror((e) => print(e));
+    IO.Socket socket = IO.io(socketUrl + ":" + socketPort,
+     <String, dynamic>{
+      'transports': ['websocket'],
+      'upgrade': false
+    });
     socket.onConnect((_) {
       print('connect');
     });
+      socket.connect();
+    socket.on("connect", (data) {
+      print("Connection Successfully Established...");
+      // onSocketConnected(socketIO);
+    });
+    
     socket.on('video_links', (data) {
       print(data);
       if (data != null) {

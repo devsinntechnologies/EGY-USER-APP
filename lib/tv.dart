@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
+import 'main.dart';
+
 class VideoPlayerScreen extends StatefulWidget {
   const VideoPlayerScreen({super.key});
 
@@ -18,9 +20,24 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     super.dispose();
   }
 
+
+
+  @override
+  void initState() {
+          var provider = context.read<SocketProvider>();
+        provider.connection();
+    super.initState();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        var provider = context.read<SocketProvider>();
+        provider.connection();
+      }),
       appBar: AppBar(
         title: const Text('Egypt_American TV'),
       ),
@@ -31,7 +48,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               ? Center(
                   child: CircularProgressIndicator.adaptive(),
                 )
-              : VideoPlayer(socketProvider.controller!);
+              : Container(
+                height: 400,
+                child: VideoPlayer(socketProvider.controller!));
         }),
       ),
     );
