@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:egypt_user_tv/agora_preview.dart';
 import 'package:egypt_user_tv/provider/socket_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,8 +36,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: (){
-        var provider = context.read<SocketProvider>();
-        provider.connection();
+        // var provider = context.read<SocketProvider>();
+        // provider.connection();
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> AgoraMyPreview() ));
       }),
       appBar: AppBar(
         title: const Text('Egypt_American TV'),
@@ -48,9 +50,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               ? Center(
                   child: CircularProgressIndicator.adaptive(),
                 )
-              : Container(
-                height: 400,
-                child: VideoPlayer(socketProvider.controller!));
+              : AspectRatio(
+                  aspectRatio: socketProvider.controller!.value.aspectRatio,
+                  child: VideoPlayer(socketProvider.controller!),
+                );
         }),
       ),
     );

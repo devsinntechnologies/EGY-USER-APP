@@ -19,7 +19,7 @@ class SocketProvider extends ChangeNotifier {
   String socketVideoPath = "/videos/";
 
   connection() {
-    debugger();
+    // debugger();
     IO.Socket socket = IO.io(socketUrl + ":" + socketPort,
      <String, dynamic>{
       'transports': ['websocket'],
